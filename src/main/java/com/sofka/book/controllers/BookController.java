@@ -5,6 +5,7 @@ import com.sofka.book.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,11 +45,11 @@ public class BookController {
     }
 
     @PostMapping(path = "/")
-    public Mono<Book> postBook(@RequestBody Book book){
+    public Mono<Book> postBook(@Validated @RequestBody Book book){
         return bookService.postBook(book).log();
     }
     @PutMapping(path = "/{id}")
-    public Mono<ResponseEntity<Book>> updateBook(@PathVariable String id, @RequestBody Book book ){
+    public Mono<ResponseEntity<Book>> updateBook(@PathVariable String id, @Validated @RequestBody Book book ){
         return bookService.updateBook(id,book);
     }
     @DeleteMapping(path = "/{id}")
