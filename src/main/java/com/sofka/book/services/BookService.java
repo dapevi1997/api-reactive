@@ -11,6 +11,16 @@ import reactor.core.publisher.Mono;
 
 import java.time.Duration;
 
+/**
+ * Class Service.
+ *
+ * @version 1.0.0 2022-01-12
+ *
+ * @author DANIEL PEREZ VITOLA - dapevi97@gmail.com
+ *
+ * @since 1.0.0
+ *
+ */
 @Service
 public class BookService {
     private final BookRepository bookRepository;

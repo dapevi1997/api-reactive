@@ -12,6 +12,16 @@ import reactor.core.publisher.Mono;
 
 import static org.springframework.web.reactive.function.BodyInserters.fromValue;
 
+/**
+ * Class Handler.
+ *
+ * @version 1.0.0 2022-01-12
+ *
+ * @author DANIEL PEREZ VITOLA - dapevi97@gmail.com
+ *
+ * @since 1.0.0
+ *
+ */
 @Component
 public class BookHandler {
     private final BookRepository bookRepository;
@@ -30,6 +40,7 @@ public class BookHandler {
     public Mono<ServerResponse> getOneBook(ServerRequest serverRequest){
         String id = serverRequest.pathVariable("id");
         Mono<Book> itemMono = bookRepository.findById(id);
+
         return itemMono.flatMap(item ->
                 ServerResponse.ok()
                         .contentType(MediaType.APPLICATION_JSON)

@@ -21,6 +21,16 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 
 import static org.springframework.web.reactive.function.server.RequestPredicates.*;
 
+/**
+ * Class Router.
+ *
+ * @version 1.0.0 2022-01-12
+ *
+ * @author DANIEL PEREZ VITOLA - dapevi97@gmail.com
+ *
+ * @since 1.0.0
+ *
+ */
 @Configuration
 public class BookRouter {
     @Bean
@@ -100,7 +110,8 @@ public class BookRouter {
                                     },
                                     requestBody = @RequestBody(
                                             content = @Content(schema = @Schema(
-                                                    implementation = Book.class
+                                                   implementation = Book.class
+
                                             ))
                                     )
                             )
@@ -144,12 +155,17 @@ public class BookRouter {
                                     responses = {
                                             @ApiResponse(
                                                     responseCode = "200",
-                                                    description = "succesful operation",
+                                                    description = "Book found",
                                                     content = @Content(schema = @Schema(
                                                             implementation = Book.class
                                                     ))
                                             ),
-                                            @ApiResponse(responseCode = "404", description = "Book not found")
+                                            @ApiResponse(
+                                                    responseCode = "404",
+                                                    description = "Book not found",
+                                            content = @Content(schema = @Schema(
+                                                    description = "Book not found"
+                                            )))
                                     },
                                     parameters = {
                                             @Parameter(in = ParameterIn.PATH, name = "id" )
@@ -161,8 +177,9 @@ public class BookRouter {
             }
     )
     public RouterFunction<ServerResponse> bookRouterFunc(BookHandler bookHandler){
-        return RouterFunctions.route(GET("/api/func/books/").and(accept(MediaType.APPLICATION_JSON))
-        ,bookHandler::getAllBooks)
+        return RouterFunctions
+                .route(GET("/api/func/books/").and(accept(MediaType.APPLICATION_JSON))
+                ,bookHandler::getAllBooks)
                 .andRoute(POST("/api/func/books/").and(accept(MediaType.APPLICATION_JSON))
                 ,bookHandler::createBook)
                 .andRoute(PUT("/api/func/books/{id}").and(accept(MediaType.APPLICATION_JSON))

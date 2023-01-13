@@ -5,11 +5,21 @@ import io.swagger.v3.oas.annotations.info.Info;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * Class that contains the main method.
+ *
+ * @version 1.0.0 2022-01-12
+ *
+ * @author DANIEL PEREZ VITOLA - dapevi97@gmail.com
+ *
+ * @since 1.0.0
+ *
+ */
 @SpringBootApplication
 @OpenAPIDefinition(info = @Info(
-        title = "Spring webflux crud example",
-        version = "1.0",
-        description = "Sample documents"
+        title = "Reactive CRUD",
+        version = "1.0.0",
+        description = "Creating a reactive CRUD with Java 11 and Spring Boot 2.7.7"
 ))
 public class BookApplication {
 
