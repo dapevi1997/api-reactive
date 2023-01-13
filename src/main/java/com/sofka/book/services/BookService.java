@@ -22,6 +22,9 @@ public class BookService {
     public Flux<Book> getAllBook(){
         return bookRepository.findAll().delayElements(Duration.ofSeconds(1)).log();
     }
+    public Mono<Book> findById(String id){
+        return bookRepository.findById(id);
+    }
     public Mono<Book> postBook(Book book){
         return bookRepository.save(book).log();
     }

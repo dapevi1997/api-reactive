@@ -21,6 +21,10 @@ public class BookController {
     public Flux<Book> getAllBook(){
         return bookService.getAllBook();
     }
+    @GetMapping(path = "/{id}")
+    public Mono<Book> findById(@PathVariable String id){
+        return bookService.findById(id);
+    }
 
     @PostMapping(path = "/")
     public Mono<Book> postBook(@RequestBody Book book){

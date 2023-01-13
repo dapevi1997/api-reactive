@@ -130,6 +130,32 @@ public class BookRouter {
                                     }
 
                             )
+                    ),
+                    @RouterOperation(
+                            path = "/api/func/books/{id}",
+                            produces = {
+                                    MediaType.APPLICATION_JSON_VALUE
+                            },
+                            method = RequestMethod.GET,
+                            beanClass = BookHandler.class,
+                            beanMethod = "getOneBook",
+                            operation = @Operation(
+                                    operationId = "getOneBook",
+                                    responses = {
+                                            @ApiResponse(
+                                                    responseCode = "200",
+                                                    description = "succesful operation",
+                                                    content = @Content(schema = @Schema(
+                                                            implementation = Book.class
+                                                    ))
+                                            ),
+                                            @ApiResponse(responseCode = "404", description = "Book not found")
+                                    },
+                                    parameters = {
+                                            @Parameter(in = ParameterIn.PATH, name = "id" )
+                                    }
+
+                            )
                     )
 
             }
@@ -142,6 +168,8 @@ public class BookRouter {
                 .andRoute(PUT("/api/func/books/{id}").and(accept(MediaType.APPLICATION_JSON))
                 ,bookHandler::updateBook)
                 .andRoute(DELETE("/api/func/books/{id}").and(accept(MediaType.APPLICATION_JSON))
-                ,bookHandler::deleteBook);
+                ,bookHandler::deleteBook)
+                .andRoute(GET("/api/func/books/{id}").and(accept(MediaType.APPLICATION_JSON))
+                ,bookHandler::getOneBook);
     }
 }

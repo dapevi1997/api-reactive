@@ -27,6 +27,16 @@ public class BookHandler {
                 .body(bookRepository.findAll(), Book.class);
     }
 
+    public Mono<ServerResponse> getOneBook(ServerRequest serverRequest){
+        String id = serverRequest.pathVariable("id");
+        Mono<Book> itemMono = bookRepository.findById(id);
+        return itemMono.flatMap(item ->
+                ServerResponse.ok()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(fromValue(item))
+                        .switchIfEmpty(notFound));
+    }
+
     public Mono<ServerResponse> updateBook(ServerRequest serverRequest) {
         String id = serverRequest.pathVariable("id");
         Mono<Book> updateBook = serverRequest.bodyToMono(Book.class).log("mono: ")
